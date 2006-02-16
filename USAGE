@@ -1,0 +1,11 @@
+Description:
+    The ASF generator creates the CSS and sample HTML for a Salesforce Layout 
+    driven set of List, Detail and Edit pages.  
+
+    The generator takes the model name and RecordType name as parameters.  RecordType
+    is optional.
+
+Example:
+
+    ./script/generate asf_scaffold Account 
+    ./script/generate asf_scaffold Contact SalesLeadRT
