@@ -1,19 +1,14 @@
-#require 'scaffold_generator'
-require_gem 'rails'
-require 'NamedBase'
 
 
-# REMINDER
+# REMINDER Add this to environment.rb during development
 # Rails::Generator::Base.sources << Rails::Generator::PathSource.new(:development, "#{Dir.user_home}/dev/activesfdc/trunk/ActiveSalesforceGenerator/")
 
 
-class AsfScaffoldGenerator < Rails::Generator::NamedBase #ScaffoldGenerator
+class AsfScaffoldGenerator < ScaffoldGenerator
   attr_accessor :record_type
   
   def initialize(runtime_args, runtime_options = {})
     super(runtime_args, runtime_options)
-    
-    pp self
     
     #@record_type = args[2]
   end
