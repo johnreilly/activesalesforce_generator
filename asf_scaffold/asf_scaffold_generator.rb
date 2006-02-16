@@ -14,7 +14,6 @@ class AsfScaffoldGenerator < ScaffoldGenerator
   end
   
   def manifest
-    pp self 
     super
     
     record do |m|  

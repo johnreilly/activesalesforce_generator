@@ -1,28 +1,76 @@
-<h1>ASF Listing <%= plural_name %></h1>
+<link  href="http://na1.salesforce.com/dCSS/Theme2/default/common.css" type="text/css" media="handheld,print,projection,screen,tty,tv" rel="stylesheet" >
+<link  href="http://na1.salesforce.com/dCSS/Theme2/default/custom.css" type="text/css" media="handheld,print,projection,screen,tty,tv" rel="stylesheet" >
+<link  href="http://na1.salesforce.com/css/assistive.css" type="text/css" media="aural,braille,embossed" rel="stylesheet" >
+<script type="text/javascript" src="http://na1.salesforce.com/js/functions.js"></script>
+
+<table class="outer" width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td class="oRight">
+<a name="skiplink"><img src="http://na1.salesforce.com/s.gif" height='1' width='1' alt="Content Starts Here" class="skiplink"></a>
+
+<div class="bPageTitle">
+
+<div class="ptBody secondaryPalette">
+
+<div class="content"><img src="http://na1.salesforce.com/img/icon/<%= plural_name %>32.png" alt="<%= model_name %>"  class="pageTitleIcon">
+<h1 class="pageType noSecondHeader">All <%= model_name.pluralize %></h1>
+<div class="blank">&nbsp;</div>
+</div>
+
+<div class="links"><a href="javascript:openPopupFocusEscapePounds('/help/doc/user_ed.jsp?loc=help&body=%2Fhelp%2Fdoc%2Fen%2Fhelp2.jsp&target=<%= plural_name %>_view.htm&section=<%= model_name.pluralize %>', 'Help', 700, 600, 'width=700,height=600,resizable=yes,toolbar=no,status=no,scrollbars=yes,menubar=yes,directories=no,location=no,dependant=no', false, false);" title="Help for this Page (New Window)"><span  class="helpLink">Help for this Page</span><img src="http://na1.salesforce.com/s.gif" alt=""  class="helpImage"></a></div>
+</div>
+<div class="ptBreadcrumb"></div>
+</div>
+
+<!-- Begin ListElement -->
+
+
+<!-- WrappingClass -->
+<div class="list<%= model_name %>">
+  <div class="bPageBlock secondaryPalette">
+  <div class="pbHeader"></div>
+  <div class="pbBody">
+  <table class="list" border="0" cellspacing="0" cellpadding="0">
+  <tr class="headerRow">
+  <th class="actionColumn" scope="col">Action</th>
+  <%% for column in <%= model_name %>.content_columns %>
+    <th scope="col" class=""><a href="#" title="<%%= column.human_name %>"><%%= column.human_name %></a></th>
+  <%% end %>
+  </tr>
+
+  <%% for <%= singular_name %> in @<%= plural_name %> %>
+  <tr class=" dataRow <%%= cycle("even","odd") %> " onmouseout="if (typeof(hiOff) != 'undefined'){hiOff(this);}" onfocus="if (typeof(hiOn) != 'undefined'){hiOn(this);}" onblur="if (typeof(hiOff) != 'undefined'){hiOff(this);}" onmouseover="if (typeof(hiOn) != 'undefined'){hiOn(this);}">
+  <td class='actionColumn'>
+	  <%%= link_to 'Edit', :action => 'edit<%= suffix %>', :id => <%= singular_name %> %>
+	  &nbsp;|&nbsp;
+	  <%%= link_to 'Destroy', { :action => 'destroy<%= suffix %>', :id => <%= singular_name %> }, :confirm => 'Are you sure?' %>
+  </td>
+  </td>
+  <%% for column in <%= model_name %>.content_columns %>
+  	<%% value = <%= singular_name %>.send(column.name) %>
+    <td class='dataCell'>  	
+	  	<%% unless column.reference_to %>
+	    	<%%= value ? value : '&nbsp;' %>
+	  	<%% else %>
+	    	<%%= value ? link_to(column.reference_to, 
+	    	{ :controller => column.reference_to.pluralize.underscore, :action=> 'show', :id => value }) : '&nbsp;' %>
+	  	<%% end %>
+  	</td>  
+  <%% end %>
+  </tr>
+  <%% end %>
+  </table>
+  </div>
+  </div>
+  </div>
+
+</td>
+</tr>
+</table>
 
 <%%= link_to 'Previous page', { :page => @<%= singular_name %>_pages.current.previous } if @<%= singular_name %>_pages.current.previous %>
 <%%= link_to 'Next page', { :page => @<%= singular_name %>_pages.current.next } if @<%= singular_name %>_pages.current.next %> 
-<%%= link_to 'New <%= singular_name %>', :action => 'new<%= suffix %>' %>
-
-<table>
-  <tr>
-  <%% for column in <%= model_name %>.content_columns %>
-    <th><%%= column.human_name %></th>
-  <%% end %>
-  </tr>
-  
-<%% for <%= singular_name %> in @<%= plural_name %> %>
-  <tr>
-  <%% for column in <%= model_name %>.content_columns %>
-    <td><%%=h <%= singular_name %>.send(column.name) %></td>
-  <%% end %>
-    <td><%%= link_to 'Show', :action => 'show<%= suffix %>', :id => <%= singular_name %> %></td>
-    <td><%%= link_to 'Edit', :action => 'edit<%= suffix %>', :id => <%= singular_name %> %></td>
-    <td><%%= link_to 'Destroy', { :action => 'destroy<%= suffix %>', :id => <%= singular_name %> }, :confirm => 'Are you sure?' %></td>
-  </tr>
-<%% end %>
-</table>
-
 
 <br />
 
+<%%= link_to 'New contact', :action => 'new' %>
