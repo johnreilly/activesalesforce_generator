@@ -20,12 +20,14 @@ class AsfScaffoldGenerator < ScaffoldGenerator
       # Scaffolded views.
       scaffold_views.each do |action|
         m.template "asf_view_#{action}.rhtml",
-        File.join('app/views',
-        controller_class_path,
-        controller_file_name,
-                             "asf_#{action}.rhtml"),
+          File.join('app/views', controller_class_path, controller_file_name, "asf_#{action}.rhtml"),
         :assigns => { :action => action }
       end
+      
+      # Layout and stylesheet.
+      m.template 'asf_layout.rhtml',  "app/views/layouts/asf_#{controller_file_name}.rhtml"
+      m.template 'asf_scaffold.css',     'public/stylesheets/asf_scaffold.css'
+      m.template 'asf_common.css',     'public/stylesheets/asf_common.css'
     end
   end  
   

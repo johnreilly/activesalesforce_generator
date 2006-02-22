@@ -1,0 +1,17 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <title>Contacts: <%= controller.action_name %></title>
+  <%%= stylesheet_link_tag 'asf_scaffold' %>
+  <%%= stylesheet_link_tag 'asf_common' %>
+  <script type="text/javascript" src="http://na1.salesforce.com/js/functions.js"></script>
+
+</head>
+<body class="contact  overviewPage">
+
+<p style="color: green"><%= flash[:notice] %></p>
+
+<%%= @content_for_layout %>
+
+</body>
+</html>
