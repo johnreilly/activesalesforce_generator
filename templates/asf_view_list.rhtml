@@ -19,6 +19,7 @@
 </div> 
 
 <!-- Begin ListElement -->
+<%% columns = [ <%= (model_name.constantize.content_columns.map { |column| "'#{column.name}'" }).join(', ') %> ] %>
 
 <!-- WrappingClass -->
 <div class="list<%= model_name %>">
@@ -37,7 +38,7 @@
 	  <table class="list" border="0" cellspacing="0" cellpadding="0">
 	  <tr class="headerRow">
 	  <th class="actionColumn" scope="col">Action</th>
-	  <%% for column in <%= model_name %>.content_columns %>
+	  <%% for column_name in columns; column = <%= model_name %>.columns_hash[column_name] %>
 	   <th scope="col" class=""><a href="#" title="<%%= column.human_name %>"><%%= column.human_name %></a></th>
 	  <%% end %>
       </tr>
@@ -50,7 +51,7 @@
 		  <%%= link_to 'Del', { :action => 'destroy', :id => <%= singular_name %> }, :confirm => 'Are you sure?' %>
 	  </td>
 	  </td>
-  <%% for column in <%= model_name %>.content_columns %>
+  <%% for column_name in columns; column = <%= model_name %>.columns_hash[column_name] %>
   	<%% value = <%= singular_name %>.send(column.name) %>
     <td class='dataCell'>  	
 	  	<%% unless column.reference_to %>
@@ -76,6 +77,6 @@
 </table>
 
 <%%= link_to 'Previous page', { :page => @<%= singular_name %>_pages.current.previous } if @<%= singular_name %>_pages.current.previous %>
-<%%= link_to 'Next page', { :page => @<%= singular_name %>_pages.current.next } if @<%= singular_name %>.current.next %> 
+<%%= link_to 'Next page', { :page => @<%= singular_name %>_pages.current.next } if @<%= singular_name %>_pages.current.next %> 
 
 <br />

@@ -36,26 +36,33 @@ class AsfScaffoldGenerator < ScaffoldGenerator
   end
   
   def manifest
-    super
-    
     record do |m|  
       # Scaffolded views.
       scaffold_views.each do |action|
         m.template "asf_view_#{action}.rhtml",
-          File.join('app/views', controller_class_path, controller_file_name, "asf_#{action}.rhtml"),
+          File.join('app/views', controller_class_path, controller_file_name, "#{action}.rhtml"),
         :assigns => { :action => action }
       end
       
       # Layout and stylesheet.
-      m.template 'asf_layout.rhtml', "app/views/layouts/asf_#{controller_file_name}.rhtml"
+      m.template 'asf_layout.rhtml', "app/views/layouts/#{controller_file_name}.rhtml"
+      
       m.template 'asf_scaffold.css', "public/stylesheets/asf_scaffold.css"
       m.template 'asf_common.css', "public/stylesheets/asf_common.css"
     end
   end  
   
+
   protected
-  # Override with your own usage banner.
-  def banner
-      "Usage: #{$0} asf_scaffold ModelName RecordType [ControllerName] [action, ...]" 
-  end
+  
+    # DCHASMAN TODO Remove this when the show, new and edit templates are ready
+    def scaffold_views
+      #%w(list show new edit)
+      %w(list)
+    end  
+  
+    # Override with your own usage banner.
+    def banner
+        "Usage: #{$0} asf_scaffold ModelName RecordType [ControllerName] [action, ...]" 
+    end
 end
