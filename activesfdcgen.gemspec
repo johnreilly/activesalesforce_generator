@@ -30,14 +30,11 @@ SPEC = Gem::Specification.new do |s|
   s.homepage = "http://rubyforge.org/projects/activesfdc/"
   s.platform = Gem::Platform::RUBY
   s.summary = "ActiveSalesforce Generator provides additional salesforce aware scaffolding support."
-  candidates = Dir.glob("{.,templates,test}/**/*")
+  candidates = Dir.glob("{asf_scaffold,templates,test}/**/*")
   
-  s.files = candidates.delete_if do |item|
-    item.include?(".svn") || item.include?("rdoc") || item.include?(".gemspec") || item.include?(".gem")
-  end 
   
   s.has_rdoc = false
-  s.extra_rdoc_files = ["USAGE"]
+  s.extra_rdoc_files = ["asf_scaffold/USAGE"]
   s.add_dependency("rails", ">= 1.0.0")
   s.add_dependency("activesalesforce", ">= 0.2.6")
 end
