@@ -55,7 +55,7 @@
   	<%% value = <%= singular_name %>.send(column.name) %>
     <td class='dataCell'>  	
 	  	<%% unless column.reference_to %>
-	    	<%%= value ? value : '&nbsp;' %>
+	    	<%%= value ? link_to(value, :action => 'show', :id => <%= singular_name %>) : '&nbsp;' %>
 	  	<%% else %>
 	    	<%%= value ? link_to(column.reference_to, 
 	    	{ :controller => column.reference_to.pluralize.underscore, :action=> 'show', :id => value }) : '&nbsp;' %>
