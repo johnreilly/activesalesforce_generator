@@ -23,7 +23,7 @@
 
 require 'rubygems'
 SPEC = Gem::Specification.new do |s|
-  s.name = "activesalesforcegen"
+  s.name = "asf_scaffold_generator"
   s.version = "0.0.1"
   s.author = "Doug Chasman"
   s.email = "dchasman@salesforce.com"
@@ -35,7 +35,7 @@ SPEC = Gem::Specification.new do |s|
   s.files = candidates.delete_if do |item|
     #item.include?(".svn") || item.include?("rdoc")
   end 
-   
+  
   s.has_rdoc = false
   s.extra_rdoc_files = ["asf_scaffold/USAGE"]
   s.add_dependency("rails", ">= 1.0.0")
