@@ -42,7 +42,7 @@
 	  <%% end %>
       </tr>
 
-	  <%% for <%= singular_name %> in @<%= plural_name % %>
+	  <%% for <%= singular_name %> in @<%= plural_name %> %>
 	  <tr class=" dataRow <%%= cycle("even","odd") %> " onmouseout="if (typeof(hiOff) != 'undefined'){hiOff(this);}" onfocus="if (typeof(hiOn) != 'undefined'){hiOn(this);}" onblur="if (typeof(hiOff) != 'undefined'){hiOff(this);}" onmouseover="if (typeof(hiOn) != 'undefined'){hiOn(this);}">
 	  <td class="actionColumn" >
 		  <%%= link_to 'Edit', :action => 'edit', :id => <%= singular_name %> %>
