@@ -39,5 +39,4 @@ SPEC = Gem::Specification.new do |s|
   s.has_rdoc = false
   s.extra_rdoc_files = ["USAGE"]
   s.add_dependency("rails", ">= 1.0.0")
-  s.add_dependency("activesalesforce", ">= 0.2.6")
 end
