@@ -19,7 +19,7 @@
 </div> 
 
 <!-- Begin ListElement -->
-<%% columns = [ <%= (model_name.constantize.content_columns.map { |column| "'#{column.name}'" }).join(', ') %> ] %>
+<%% columns = [ <%= (model_name.constantize.columns.map { |column| ":#{column.name}" }).join(', ') %> ] %>
 
 <!-- WrappingClass -->
 <div class="list<%= model_name %>">
@@ -38,7 +38,7 @@
 	  <table class="list" border="0" cellspacing="0" cellpadding="0">
 	  <tr class="headerRow">
 	  <th class="actionColumn" scope="col">Action</th>
-	  <%% for column_name in columns; column = <%= model_name %>.columns_hash[column_name] %>
+	  <%% for column_name in columns; column = <%= model_name %>.columns_hash[column_name.to_s] %>
 	   <th scope="col" class=""><a href="#" title="<%%= column.human_name %>"><%%= column.human_name %></a></th>
 	  <%% end %>
       </tr>
@@ -51,7 +51,7 @@
 		  <%%= link_to 'Del', { :action => 'destroy', :id => <%= singular_name %> }, :confirm => 'Are you sure?' %>
 	  </td>
 	  </td>
-  <%% for column_name in columns; column = <%= model_name %>.columns_hash[column_name] %>
+  <%% for column_name in columns; column = <%= model_name %>.columns_hash[column_name.to_s] %>
   	<%% value = <%= singular_name %>.send(column.name) %>
     <td class='dataCell'>  	
 	  	<%% unless column.reference_to %>
