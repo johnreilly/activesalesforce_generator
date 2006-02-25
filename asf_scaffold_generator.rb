@@ -58,7 +58,7 @@ class AsfScaffoldGenerator < ScaffoldGenerator
     # DCHASMAN TODO Remove this when the show, new and edit templates are ready
     def scaffold_views
       #%w(list show new edit)
-      %w(list)
+      %w(list show)
     end  
   
     # Override with your own usage banner.
