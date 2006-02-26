@@ -4,7 +4,9 @@
    entity_def = connection.get_entity_def(entity_name)
    layouts = entity_def.layouts 
 %>
-<table>
+<div class="bPageBlock secondaryPalette" id="ep"><div class="pbHeader">
+<div class="pbBody"><div class="pbSubsection">
+<table class="detailList">
   <% layouts[:layouts][:detailLayoutSections].each do |section| 
       rows = section[:layoutRows]
       rows = [ rows ] unless rows.is_a? Array
@@ -15,11 +17,11 @@
        items = [ items ] unless items.is_a? Array
        items.each do | item |
     %>
-    <td><%= item[:label] %></td>
+    <td class="labelCol"><%= item[:label] %></td>
       <% components = item[:layoutComponents]
          components = [ components ] unless components.is_a? Array
       %>    
-      <td>
+      <td class="dataCol col02">
         <% components.each do |component|
              next if component.nil?
              if component[:type] == "Field"
@@ -43,3 +45,5 @@
     end
 %>
 </table>
+</div></div>
+</div></div>
