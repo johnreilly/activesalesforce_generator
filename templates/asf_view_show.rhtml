@@ -29,11 +29,11 @@
                column = entity_def.api_name_to_column[field]
 
 			   col_ref = "@#{singular_name}.#{column.name}"       
-               unless column.reference_to 
+               if column.respond_to?(:reference_to) and column.reference_to 
         %>
-	    <%%=      <%= col_ref %> ? <%= col_ref %> : '&nbsp;' %>
-	  	<%     else %>
 	    <%%=      <%= col_ref %> ? link_to(<%= col_ref %>, { :controller => '<%= column.reference_to.pluralize.underscore %>', :action=> 'show', :id => <%= col_ref %> }) : '&nbsp;' %>
+	  	<%     else %>
+	    <%%=      <%= col_ref %> ? <%= col_ref %> : '&nbsp;' %>
 	  	<%     end        
              end
            end

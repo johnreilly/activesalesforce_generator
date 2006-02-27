@@ -54,11 +54,11 @@
   <%% for column_name in columns; column = <%= model_name %>.columns_hash[column_name.to_s] %>
   	<%% value = <%= singular_name %>.send(column.name) %>
     <td class='dataCell'>  	
-	  	<%% unless column.reference_to %>
-	    	<%%= value ? link_to(value, :action => 'show', :id => <%= singular_name %>) : '&nbsp;' %>
-	  	<%% else %>
+	  	<%% if column.respond_to?(:reference_to) and column.reference_to %>
 	    	<%%= value ? link_to(column.reference_to, 
 	    	{ :controller => column.reference_to.pluralize.underscore, :action=> 'show', :id => value }) : '&nbsp;' %>
+	  	<%% else %>
+	    	<%%= value ? link_to(value, :action => 'show', :id => <%= singular_name %>) : '&nbsp;' %>
 	  	<%% end %>
   	</td>  
   <%% end %>
