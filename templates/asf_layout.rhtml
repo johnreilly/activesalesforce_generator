@@ -2,8 +2,8 @@
 <html>
 <head>
   <title><%= model_name %>: <%%= controller.action_name %></title>
-  <%%= stylesheet_link_tag 'asf_scaffold' %>
-  <%%= stylesheet_link_tag 'asf_common' %>
+  <%% url = <%= model_name %>.connection.binding.url %>
+  <%%= tag("link", { "rel" => "Stylesheet", "type" => "text/css", "media" => "screen", "href" => "#{url.scheme}://#{url.host}:#{url.port}/dCSS/Theme2/default/common.css" }) %>
   <script type="text/javascript" src="http://na1.salesforce.com/js/functions.js"></script>
 
 </head>

@@ -46,9 +46,6 @@ class AsfScaffoldGenerator < ScaffoldGenerator
       
       # Layout and stylesheet.
       m.template 'asf_layout.rhtml', "app/views/layouts/#{controller_file_name}.rhtml"
-      
-      m.template 'asf_scaffold.css', "public/stylesheets/asf_scaffold.css"
-      m.template 'asf_common.css', "public/stylesheets/asf_common.css"
     end
   end  
   
