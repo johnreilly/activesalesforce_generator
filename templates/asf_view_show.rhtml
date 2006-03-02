@@ -59,6 +59,7 @@ function update_ids(id_map) {
 	  match = id_map[link.innerHTML]
 	  if (match) {
 	    link.innerHTML = match
+	    new Effect.Highlight(link)
 	  }
 	}
 }

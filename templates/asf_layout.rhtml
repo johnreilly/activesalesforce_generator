@@ -5,7 +5,7 @@
   <%% url = <%= model_name %>.connection.binding.url %>
   <%%= tag("link", { "rel" => "Stylesheet", "type" => "text/css", "media" => "screen", "href" => "#{url.scheme}://#{url.host}:#{url.port}/dCSS/Theme2/default/common.css" }) %>
   <script type="text/javascript" src="http://na1.salesforce.com/js/functions.js"></script>
-  <%%= javascript_include_tag "prototype" %>
+  <%%= javascript_include_tag "prototype", "effects" %>
 </head>
 <body class="contact  overviewPage">
 
