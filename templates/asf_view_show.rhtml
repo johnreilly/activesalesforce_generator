@@ -56,10 +56,15 @@ function update_ids(id_map) {
 	for (var n = 0; n < links.length; n++) {
 	  link = links[n]
 	  
-	  match = id_map[link.innerHTML]
-	  if (match) {
-	    link.innerHTML = match
-	    new Effect.Highlight(link)
+	  // Look for any links that end in /show/<id>
+	  pos = link.href.lastIndexOf("/show/")
+	  if (pos >= 0) {
+	  	  id = link.href.substring(pos + 6)
+		  match = id_map[id]
+		  if (match) {
+		    link.innerHTML = match
+		    new Effect.Highlight(link)
+		  }
 	  }
 	}
 }
