@@ -6,12 +6,43 @@
   <%%= tag("link", { "rel" => "Stylesheet", "type" => "text/css", "media" => "screen", "href" => "#{url.scheme}://#{url.host}:#{url.port}/dCSS/Theme2/default/common.css" }) %>
   <script type="text/javascript" src="http://na1.salesforce.com/js/functions.js"></script>
   <%%= javascript_include_tag "prototype", "effects" %>
+  
+  <script>
+  function update_ids(id_map) {
+	links = document.getElementsByTagName('a')
+	
+	for (var n = 0; n < links.length; n++) {
+	  link = links[n]
+	  
+	  // Look for any links that end in /show/<id>
+	  pos = link.href.lastIndexOf("/show/")
+	  if (pos >= 0) {
+	  	  id = link.href.substring(pos + 6)
+		  match = id_map[id]
+		  if (match) {
+		    link.innerHTML = match
+		    new Effect.Highlight(link)
+		  }
+	  }
+	}
+  }
+
+  </script>
+  
 </head>
-<body class="contact  overviewPage">
+
+<body class="contact  overviewPage" onload="request_id_resolve()">
 
 <p style="color: green"><%%= flash[:notice] %></p>
 
 <%%= @content_for_layout %>
+
+<script>
+  function request_id_resolve() {
+  	<%= remote_function(:url => { :controller => 'asf_resolveids', :action => :resolve, :class => '<%= model_name >', :ids => @id_resolver.serialize }, :complete => "update_ids(eval(request.responseText))") %>
+  }
+</script>
+
 
 </body>
 </html>

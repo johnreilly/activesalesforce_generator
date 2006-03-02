@@ -80,3 +80,9 @@
 <%%= link_to 'Next page', { :page => @<%= singular_name %>_pages.current.next } if @<%= singular_name %>_pages.current.next %> 
 
 <br />
+
+
+<%% @id_resolver = ActiveSalesforce::IdResolver.new(<%= model_name >.connection) 
+    @<%= plural_name %>.each { |<%= singular_name %>| @id_resolver.add(<%= singular_name %>, columns) }
+%>
+
