@@ -48,3 +48,25 @@
 </table>
 </div></div>
 </div></div>
+
+<script>
+function update_ids(id_map) {
+	links = document.getElementsByTagName('a')
+	
+	for (var n = 0; n < links.length; n++) {
+	  link = links[n]
+	  
+	  match = id_map[link.innerHTML]
+	  if (match) {
+	    link.innerHTML = match
+	  }
+	}
+}
+</script>
+
+<%% id_resolver = ActiveSalesforce::IdResolver.new(<%= model_name %>.connection) 
+   id_resolver.add(@<%= singular_name >) %>
+   
+<script>
+<%%= remote_function(:url => { :action => :resolve_ids, :ids_to_resolve => id_resolver.serialize }, :complete => "update_ids(eval(request.responseText))") %>
+</script>
