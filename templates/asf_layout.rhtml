@@ -39,7 +39,7 @@
 
 <script>
   function request_id_resolve() {
-  	<%= remote_function(:url => { :controller => 'asf_resolveids', :action => :resolve, :class => '<%= model_name >', :ids => @id_resolver.serialize }, :complete => "update_ids(eval(request.responseText))") %>
+  	<%%= remote_function(:url => { :controller => 'asf_resolveids', :action => :resolve, :class => '<%= model_name %>', :ids => @id_resolver.serialize }, :complete => "update_ids(eval(request.responseText))") %>
   }
 </script>
 

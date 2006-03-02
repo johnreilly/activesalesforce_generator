@@ -82,7 +82,7 @@
 <br />
 
 
-<%% @id_resolver = ActiveSalesforce::IdResolver.new(<%= model_name >.connection) 
+<%% @id_resolver = ActiveSalesforce::IdResolver.new(<%= model_name %>.connection) 
     @<%= plural_name %>.each { |<%= singular_name %>| @id_resolver.add(<%= singular_name %>, columns) }
 %>
 

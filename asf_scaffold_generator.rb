@@ -43,8 +43,11 @@ class AsfScaffoldGenerator < ScaffoldGenerator
           File.join('app/views', controller_class_path, controller_file_name, "#{action}.rhtml"),
         :assigns => { :action => action }
       end
+
+      # ID resolver controller
+      m.template 'asf_resolveids_controller.rb', "app/controllers/asf_resolveids_controller.rb"
       
-      # Layout and stylesheet.
+      # Layout
       m.template 'asf_layout.rhtml', "app/views/layouts/#{controller_file_name}.rhtml"
     end
   end  
