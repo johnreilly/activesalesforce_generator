@@ -26,7 +26,32 @@
 # Rails::Generator::Base.sources << Rails::Generator::PathSource.new(:development, "#{Dir.user_home}/dev/activesfdc/trunk/ActiveSalesforceGenerator/")
 
 
+class AsfScaffoldingSandbox
+  include ActionView::Helpers::ActiveRecordHelper
+
+  attr_accessor :form_action, :singular_name, :suffix, :model_instance, :model_name
+  
+  def initialize(singular_name, model_instance)
+    @singular_name = singular_name
+    @model_instance = model_instance
+    @model_name = model_instance.class.name
+    @scaffold_singular_name = singular_name
+  end
+  
+  def sandbox_binding
+    binding
+  end
+  
+  def default_input_block
+    Proc.new { |record, column| "<p><label for=\"#{record}_#{column.name}\">#{column.human_name}</label><br/>\n#{input(record, column.name)}</p>\n" }
+  end
+  
+end
+
+
 class AsfScaffoldGenerator < ScaffoldGenerator
+  include ActionView::Helpers::ActiveRecordHelper
+  
   attr_accessor :record_type
   
   def initialize(runtime_args, runtime_options = {})
@@ -38,9 +63,17 @@ class AsfScaffoldGenerator < ScaffoldGenerator
   def manifest
     record do |m|  
       # Scaffolded forms.
-      m.template "asf_form_scaffolding.rhtml",
-        File.join('app/views', controller_class_path, controller_file_name, "_form.rhtml")    
-      
+      m.complex_template "form.rhtml",
+        File.join('app/views',
+                  controller_class_path,
+                  controller_file_name,
+                  "_form.rhtml"),
+        :insert => 'asf_form_scaffolding.rhtml',
+        :sandbox => lambda { create_sandbox },
+        :begin_mark => 'form',
+        :end_mark => 'eoform',
+        :mark_id => singular_name
+              
       # Scaffolded views.
       scaffold_views.each do |action|
         m.template "asf_view_#{action}.rhtml",
@@ -58,6 +91,14 @@ class AsfScaffoldGenerator < ScaffoldGenerator
   
 
   protected
+  
+    def create_sandbox
+      sandbox = AsfScaffoldingSandbox.new(singular_name, model_instance)
+      sandbox.instance_variable_set("@#{singular_name}", sandbox.model_instance)
+
+      sandbox.suffix = suffix
+      sandbox
+    end
   
     # DCHASMAN TODO Remove this when the show, new and edit templates are ready
     def scaffold_views
