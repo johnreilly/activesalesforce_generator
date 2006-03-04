@@ -37,6 +37,10 @@ class AsfScaffoldGenerator < ScaffoldGenerator
   
   def manifest
     record do |m|  
+      # Scaffolded forms.
+      m.template "asf_form_scaffolding.rhtml",
+        File.join('app/views', controller_class_path, controller_file_name, "_form.rhtml")    
+      
       # Scaffolded views.
       scaffold_views.each do |action|
         m.template "asf_view_#{action}.rhtml",
@@ -58,7 +62,7 @@ class AsfScaffoldGenerator < ScaffoldGenerator
     # DCHASMAN TODO Remove this when the show, new and edit templates are ready
     def scaffold_views
       #%w(list show new edit)
-      %w(list show)
+      %w(list show edit)
     end  
   
     # Override with your own usage banner.

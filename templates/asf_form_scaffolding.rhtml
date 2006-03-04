@@ -1,0 +1,56 @@
+<% def safe_array(value)
+     if value.is_a? Array 
+       value
+     else 
+       value.nil? ? [] : [ value ] 
+     end
+   end
+%>
+<% model = model_name.constantize
+   connection = model.connection
+   entity_name = connection.entity_name_from_table(model.table_name)
+   entity_def = connection.get_entity_def(entity_name)
+   layoutMetadata = entity_def.layouts
+%>
+<div class="bPageBlock secondaryPalette" id="ep"><div class="pbHeader">
+<div class="pbBody"><div class="pbSubsection">
+<table class="detailList">
+  <% safe_array(layoutMetadata[:layouts]).each do |layout|
+       safe_array(layout[:detailLayoutSections]).each do |section| 
+         safe_array(section[:layoutRows]).each do | row |
+  %>
+  <tr>
+    <% safe_array(row[:layoutItems]).each do | item | %>
+    <td class="labelCol"><%= item[:label] %></td>
+      <td class="dataCol col02">
+        <% safe_array(item[:layoutComponents]).each do |component|
+             if component[:type] == "Field"
+               field = component[:value]
+               column = entity_def.api_name_to_column[field]
+
+			   col_ref = "@#{singular_name}.#{column.name}"       
+               if column.respond_to?(:reference_to) and column.reference_to 
+        %>
+	    <%%=     <%= col_ref %> ? link_to(<%= col_ref %>, { :controller => '<%= column.reference_to.pluralize.underscore %>', :action=> 'show', :id => <%= col_ref %> }) : '&nbsp;' %>
+	  	<%     else %>
+	    <%%=     <%= col_ref %> ? <%= col_ref %> : '&nbsp;' %>
+	  	<%     end        
+             end
+           end
+        %>
+      </td>
+      <% end %>
+    </tr>
+<%    end
+    end
+  end
+%>
+</table>
+</div></div>
+</div></div>
+
+
+<%% @id_resolver = ActiveSalesforce::IdResolver.new(<%= model_name %>.connection) 
+    @id_resolver.add(@<%= singular_name %>) 
+%>
+   
