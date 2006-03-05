@@ -42,10 +42,6 @@ class AsfScaffoldingSandbox
     binding
   end
   
-  def default_input_block
-    Proc.new { |record, column| "<p><label for=\"#{record}_#{column.name}\">#{column.human_name}</label><br/>\n#{input(record, column.name)}</p>\n" }
-  end
-  
 end
 
 
@@ -103,7 +99,7 @@ class AsfScaffoldGenerator < ScaffoldGenerator
     # DCHASMAN TODO Remove this when the show, new and edit templates are ready
     def scaffold_views
       #%w(list show new edit)
-      %w(list show edit)
+      %w(list show)
     end  
   
     # Override with your own usage banner.

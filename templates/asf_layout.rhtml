@@ -6,8 +6,16 @@
   <%%= tag("link", { "rel" => "Stylesheet", "type" => "text/css", "media" => "screen", "href" => "#{url.scheme}://#{url.host}:#{url.port}/dCSS/Theme2/default/common.css" }) %>
   <script type="text/javascript" src="http://na1.salesforce.com/js/functions.js"></script>
   <%%= javascript_include_tag "prototype", "effects" %>
-  
-  <script>
+</head>
+
+<body class="contact  overviewPage" onload="request_id_resolve()">
+
+<p style="color: green"><%%= flash[:notice] %></p>
+
+<%%= @content_for_layout %>
+
+<script>  
+  <%% if @id_resolver %>
   function update_ids(id_map) {
 	links = document.getElementsByTagName('a')
 	
@@ -26,20 +34,12 @@
 	  }
 	}
   }
+  <%% end %>
 
-  </script>
-  
-</head>
-
-<body class="contact  overviewPage" onload="request_id_resolve()">
-
-<p style="color: green"><%%= flash[:notice] %></p>
-
-<%%= @content_for_layout %>
-
-<script>
   function request_id_resolve() {
-  	<%%= remote_function(:url => { :controller => 'asf_resolveids', :action => :resolve, :class => '<%= model_name %>', :ids => @id_resolver.serialize }, :complete => "update_ids(eval(request.responseText))") %>
+    <%% if @id_resolver %>
+  	  <%%= remote_function(:url => { :controller => 'asf_resolveids', :action => :resolve, :class => '<%= model_name %>', :ids => @id_resolver.serialize }, :complete => "update_ids(eval(request.responseText))") %>
+    <%% end %>
   }
 </script>
 
