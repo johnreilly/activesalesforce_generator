@@ -8,8 +8,7 @@
 %>
 <% model = model_name.constantize
    connection = model.connection
-   entity_name = connection.entity_name_from_table(model.table_name)
-   entity_def = connection.get_entity_def(entity_name)
+   table_name, columns, entity_def = connection.lookup(model.table_name)
    layoutMetadata = entity_def.layouts
 %>
 <div class="bPageBlock secondaryPalette" id="ep"><div class="pbHeader">
